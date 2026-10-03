@@ -73,10 +73,24 @@
                   <option value="">Choose a mood</option><option>Romantic</option><option>Deep Love</option><option>Happy</option><option>Dreamy</option><option>Passionate</option><option>Nostalgic</option><option>Calm</option><option>Playful</option><option>Heartfelt</option>
                 </select>
               </div>
+              <div class="col-md-6">
+                <label class="form-label" for="relationship">What kind of love story is this?</label>
+                <select id="relationship" class="form-select">
+                  <option value="">Let the story decide</option>
+                  <option>New Love</option><option>Married Love</option><option>Long Distance</option><option>Missing Someone</option><option>First Date</option><option>Proposal</option><option>Wedding / First Dance</option><option>Healing / Reconnection</option><option>Gratitude</option><option>Forever / Soulmates</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="soundVibe">What should the soundtrack feel like?</label>
+                <select id="soundVibe" class="form-select">
+                  <option value="">Let the feeling decide</option>
+                  <option>Acoustic / Soft</option><option>Piano / Emotional</option><option>Romantic Pop</option><option>R&B / Soul</option><option>Indie / Dreamy</option><option>Classic Love Song</option><option>Wedding / First Dance</option><option>Instrumental</option><option>Urdu / South Asian</option><option>Turkish / International</option>
+                </select>
+              </div>
               <div class="col-12">
                 <label class="form-label" for="story">Your story / feeling</label>
-                <textarea id="story" class="form-control" rows="5" maxlength="1500" placeholder="Write a few words about the person, memory or feeling. No sample story is pre-filled."></textarea>
-                <div class="form-help"><span>Private draft · saved locally only when you save the moment</span><span id="storyCount">0 / 1500</span></div>
+                <textarea id="story" class="form-control" rows="5" maxlength="1500" placeholder="Tell the app what is difficult to put into words. Example: I miss my wife while working abroad, but I want a hopeful song that feels like home."></textarea>
+                <div class="form-help"><span>Private draft · used locally to build discovery searches</span><span id="storyCount">0 / 1500</span></div>
               </div>
               <div class="col-md-6">
                 <label class="form-label" for="partner">Partner's name <span class="optional">(optional)</span></label>
@@ -107,28 +121,45 @@
           <!-- This discovery form intentionally uses public search URLs. It does not require a
                private API key, and it never copies copyrighted lyrics into the application. -->
           <div class="row g-4">
-            <div class="col-lg-7">
-              <label class="form-label" for="musicQuery">Song, artist or theme</label>
-              <input id="musicQuery" class="form-control" placeholder="e.g. Ed Sheeran Perfect, first dance, long distance love">
-              <div class="form-help mt-2"><span>Tip: enter a song title or artist if you want related poetry and quotes.</span><span id="discoveryQueryHint">Your moment can also build the search.</span></div>
+            <div class="col-lg-8">
+              <label class="form-label" for="musicQuery">Optional song, artist or extra clue</label>
+              <input id="musicQuery" class="form-control" placeholder="e.g. a song like Perfect, piano love song, Turkish romantic song">
+              <div class="form-help mt-2"><span>Leave this empty when you want the app to translate your feeling into search terms.</span><span id="discoveryQueryHint">Moment context will be included automatically.</span></div>
             </div>
-            <div class="col-lg-5">
-              <label class="form-label" for="service">Music service</label>
+            <div class="col-lg-4">
+              <label class="form-label" for="service">Primary music service</label>
               <select id="service" class="form-select">
+                <option value="both">YouTube + Spotify</option>
                 <option value="youtube">YouTube</option>
                 <option value="spotify">Spotify</option>
               </select>
             </div>
             <div class="col-12">
-              <div class="discovery-actions">
-                <button id="searchMusic" class="btn btn-heart" type="button">♫ Search Songs</button>
-                <button id="searchPoetry" class="btn btn-outline-heart" type="button">♡ Search Poetry</button>
-                <button id="searchQuotes" class="btn btn-outline-heart" type="button">✦ Search Quotes</button>
-                <button id="searchAll" class="btn btn-ghost" type="button">Search All</button>
+              <div class="discovery-engine-card">
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                  <div>
+                    <div class="eyebrow mb-2">♡ FEELING → DISCOVERY ENGINE</div>
+                    <h3 class="h4 mb-2">Don't know what to search? Let the moment explain it.</h3>
+                    <p class="muted mb-0">Charlie MJ Music turns your event, mood, relationship context and story into practical search phrases for songs, poetry, quotes and captions.</p>
+                  </div>
+                  <span class="engine-badge">LOCAL · NO API KEY</span>
+                </div>
+                <div id="searchBlueprint" class="search-blueprint mt-4"></div>
               </div>
-              <div id="discoveryStatus" class="small-status mt-3" aria-live="polite">Searches open in your browser; no private search API is required.</div>
+            </div>
+            <div class="col-12">
+              <div class="discovery-actions">
+                <button id="searchAll" class="btn btn-heart" type="button">♡ Search My Whole Moment</button>
+                <button id="searchMusic" class="btn btn-outline-heart" type="button">♫ Songs</button>
+                <button id="searchPoetry" class="btn btn-outline-heart" type="button">📖 Poetry</button>
+                <button id="searchQuotes" class="btn btn-outline-heart" type="button">💬 Wise Quotes</button>
+                <button id="searchCaptions" class="btn btn-ghost" type="button">✨ Captions</button>
+              </div>
+              <div id="discoveryStatus" class="small-status mt-3" aria-live="polite">Create a moment above and Charlie MJ Music will prepare the complete discovery pack automatically.</div>
             </div>
           </div>
+
+          <div id="discoveryResults" class="discovery-results d-none mt-5" aria-live="polite"></div>
 
           <hr class="romantic-divider my-5">
 
@@ -179,6 +210,7 @@
           <div class="col-lg-6"><div class="tool-card h-100"><div class="tool-icon">💌</div><h3>Love Letter Studio</h3><p>Write an original message from your moment. The browser can prepare a writing prompt for a local AI such as Ollama/WebLLM without requiring a private cloud key.</p><textarea id="letterPrompt" class="form-control" rows="3" placeholder="Describe the message you want to write"></textarea><button id="prepareLetter" class="btn btn-heart mt-3" type="button">Prepare Local AI Prompt</button><pre id="letterOutput" class="output-box d-none mt-3"></pre></div></div>
           <div class="col-lg-6"><div class="tool-card h-100"><div class="tool-icon">🎙️</div><h3>Song Recognition</h3><p>Record a short clip in your browser. Recognition itself requires a provider that accepts browser requests and a user-owned credential; your private provider key is never embedded in this repository.</p><button id="recordButton" class="btn btn-heart" type="button">Start Recording</button><button id="stopButton" class="btn btn-ghost ms-2 d-none" type="button">Stop</button><div id="recordStatus" class="small-status mt-3" aria-live="polite">No recording yet.</div><audio id="recordingPlayer" class="w-100 d-none mt-3" controls></audio></div></div>
           <div class="col-lg-6"><div class="tool-card h-100"><div class="tool-icon">🤖</div><h3>Local AI Setup</h3><p>Generate a local prompt you can use with Ollama or another browser-compatible local model. This keeps private stories off a remote API.</p><button id="copyAiPrompt" class="btn btn-outline-heart" type="button">Copy AI Prompt Template</button><div id="aiStatus" class="small-status mt-3" aria-live="polite"></div></div></div>
+          <div class="col-lg-6"><div class="tool-card h-100"><div class="tool-icon">💞</div><h3>Love Difficulty Helper</h3><p>Not sure what song or words fit? Use the same moment to open a focused search for missing-you songs, first-dance songs, healing songs, poetry, quotes and social captions.</p><button id="openGuidedSearch" class="btn btn-heart" type="button">Guide Me From My Feelings</button><div id="guidedStatus" class="small-status mt-3" aria-live="polite"></div></div></div>
           <div class="col-lg-6"><div class="tool-card h-100"><div class="tool-icon">🔐</div><h3>Integration Settings</h3><p>Spotify uses PKCE when configured as a public client. Recognition providers should use user-owned keys. Never commit secrets to this repository.</p><a class="btn btn-outline-heart" href="docs/integrations.md">Read Integration Guide</a></div></div>
         </div>
       </div>

@@ -12,3 +12,27 @@ a{color:var(--pink);text-decoration:none}a:hover{color:var(--text)}.site-nav{bac
 .discovery-card h3{margin:.75rem 0 .5rem}
 .romantic-divider{border-color:rgba(255,255,255,.12);opacity:1}
 @media (max-width:576px){.discovery-actions .btn{width:100%}}
+
+/*
+ * Advanced discovery engine visuals.
+ * These cards make the generated search strategy visible instead of leaving the
+ * user wondering whether anything happened after creating a moment.
+ */
+.discovery-engine-card{padding:1.4rem;border:1px solid rgba(255,119,169,.22);border-radius:28px;background:linear-gradient(135deg,rgba(255,119,169,.08),rgba(168,79,255,.06));box-shadow:0 18px 50px rgba(0,0,0,.14)}
+.engine-badge{font-size:.7rem;font-weight:850;letter-spacing:.12em;color:var(--pink);border:1px solid var(--line);padding:.55rem .75rem;border-radius:999px;background:rgba(255,255,255,.04)}
+.search-blueprint{display:grid;gap:.75rem}
+.blueprint-row{display:grid;grid-template-columns:140px 1fr;gap:14px;align-items:start;padding:.8rem 0;border-top:1px solid rgba(255,255,255,.08)}
+.blueprint-row:first-child{border-top:0}
+.blueprint-label{color:var(--pink);font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;font-weight:800}
+.blueprint-row strong{font-size:.92rem;line-height:1.55;font-weight:650;color:var(--text)}
+.blueprint-chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.blueprint-chips span{display:inline-flex;align-items:center;padding:.4rem .7rem;border-radius:999px;background:rgba(255,119,169,.1);border:1px solid rgba(255,119,169,.18);font-size:.75rem;color:var(--text)}
+.blueprint-chips .blueprint-empty{color:var(--muted);background:transparent;border-style:dashed}
+.discovery-results{padding:1.4rem;border:1px solid rgba(255,119,169,.24);border-radius:30px;background:rgba(255,255,255,.035)}
+.discovery-result-header{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.discovery-result-header h3{font-size:1.6rem;font-weight:850;margin:0}
+.search-result-card{height:100%;padding:1.2rem;border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.045);transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease}
+.search-result-card:hover{transform:translateY(-4px);border-color:rgba(255,119,169,.4);box-shadow:0 16px 38px rgba(0,0,0,.16)}
+.search-result-card .tool-icon{margin-bottom:.65rem}
+.search-result-card .btn{width:100%}
+@media(max-width:767px){.blueprint-row{grid-template-columns:1fr}.discovery-result-header{flex-direction:column}.discovery-result-header .btn{width:100%}}

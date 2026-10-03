@@ -1,9 +1,3 @@
-# ♡ Charlie MJ Music
-
-**A privacy-first romantic music and moment discovery web app for couples.**
-
-Charlie MJ Music helps couples turn a feeling, memory, celebration, or relationship moment into a music-focused experience. It is deliberately designed as a **static, GitHub Pages-friendly application**.
-
 <div align="center">
 
   <img src="./assets/3aebafd8-e155-49ae-a14e-44ab2d731d9e.png" alt="Charlie MJ Music" width="700">
@@ -22,6 +16,10 @@ Charlie MJ Music helps couples turn a feeling, memory, celebration, or relations
 
 </div>
 
+**A privacy-first romantic music and moment discovery web app for couples.**
+
+Charlie MJ Music helps couples turn a feeling, memory, celebration, or relationship moment into a music-focused experience. It is deliberately designed as a **static, GitHub Pages-friendly application**.
+
 ## What this final edition is
 
 - HTML, CSS and JavaScript only
@@ -33,6 +31,10 @@ Charlie MJ Music helps couples turn a feeling, memory, celebration, or relations
 - No private API keys committed to the repository
 - Local browser storage for memories
 - Browser microphone recording for recognition preparation
+- Moment-to-Discovery Engine that automatically starts live searches after moment creation
+- YouTube + Spotify song discovery from feelings, events and relationship context
+- Romantic poetry, wise quote and social-caption discovery from the same moment
+- Feeling Translator for people who do not know what song/keywords to search
 - Spotify search/link support without exposing a client secret
 - YouTube search/link support without requiring a private search backend
 - Local-AI-friendly prompt generation
@@ -72,12 +74,16 @@ See `docs/integrations.md` for the detailed integration strategy.
 - JSON export
 - Local deletion
 
-### Music discovery
+### Music + love-content discovery
 
-- YouTube search
-- Spotify search
+- Moment creation automatically starts a Discovery Pack
+- YouTube + Spotify song search from the moment
+- Feeling-to-search translation for difficult-to-explain emotions
+- Romantic poetry discovery
+- Wise love quote discovery
+- Romantic Instagram/social caption discovery
 - Direct YouTube/Spotify URL opening
-- No fake/default songs
+- No fake/default songs, poems or quotes
 
 ### Love tools
 
@@ -96,6 +102,7 @@ charlie-mj-music/
 ├── js/
 │   └── app.js
 ├── assets/
+│   ├── 3aebafd8-e155-49ae-a14e-44ab2d731d9e.png
 │   └── icons/
 ├── docs/
 │   ├── architecture.md
