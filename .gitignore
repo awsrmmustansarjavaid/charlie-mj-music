@@ -1,0 +1,34 @@
+# Charlie MJ Music — static GitHub Pages project
+# Keep editor, OS, generated and secret files out of version control.
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local development secrets — NEVER commit these
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# Dependencies/build output if a future development tool is used
+node_modules/
+dist/
+build/
+coverage/
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Local exports created while testing
+charlie-mj-music-memories.json
