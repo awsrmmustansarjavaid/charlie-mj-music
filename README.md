@@ -4,6 +4,24 @@
 
 Charlie MJ Music helps couples turn a feeling, memory, celebration, or relationship moment into a music-focused experience. It is deliberately designed as a **static, GitHub Pages-friendly application**.
 
+<div align="center">
+
+  <img src="./assets/3aebafd8-e155-49ae-a14e-44ab2d731d9e.png" alt="Charlie MJ Music" width="700">
+
+  <h1>Charlie MJ Music</h1>
+
+  <p>
+    <strong>A romantic music discovery experience for couples, lovers, and special moments.</strong>
+  </p>
+
+  <p>
+    <a href="https://awsrmmustansarjavaid.github.io/charlie-mj-music/">
+      <strong>🎵 Live Demo</strong>
+    </a>
+  </p>
+
+</div>
+
 ## What this final edition is
 
 - HTML, CSS and JavaScript only

@@ -27,8 +27,65 @@
   $('momentForm').addEventListener('submit',(event)=>{event.preventDefault();const eventName=$('event').value,mood=$('mood').value,story=$('story').value.trim(),partner=$('partner').value.trim();if(!eventName||!mood||!story){toast('Choose an event, mood and write your story first.');return}const memory={id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),createdAt:new Date().toISOString(),event:eventName,mood,story,partner,photo:$('photoPreview').dataset.dataUrl||null};const memories=loadMemories();memories.unshift(memory);saveMemories(memories);renderMemories();$('momentOutput').classList.remove('d-none');$('momentOutput').innerHTML=`<strong>♡ Your moment is ready.</strong><p class="mb-0 mt-2">${escapeHtml(eventName)} · ${escapeHtml(mood)}${partner?` · for ${escapeHtml(partner)}`:''}. Use the music search below to turn this feeling into a soundtrack.</p>`;toast('Your love moment was saved locally.');$('momentForm').reset();$('photoPreview').classList.add('d-none');$('photoPreview').style.backgroundImage='';$('photoPreview').dataset.dataUrl='';$('storyCount').textContent='0 / 1500'})
   $('clearMoment').addEventListener('click',()=>{$('momentForm').reset();$('photoPreview').classList.add('d-none');$('photoPreview').style.backgroundImage='';$('storyCount').textContent='0 / 1500';$('momentOutput').classList.add('d-none')})
 
-  // Service search uses public search pages rather than exposing a private API key.
-  $('searchMusic').addEventListener('click',()=>{const q=$('musicQuery').value.trim();if(!q){toast('Enter a song, artist or feeling first.');return}const service=$('service').value;const url=service==='spotify'?`https://open.spotify.com/search/${encodeURIComponent(q)}`:`https://www.youtube.com/results?search_query=${encodeURIComponent(q)}`;window.open(url,'_blank','noopener,noreferrer')})
+  // Build a useful discovery query from the user's explicit search plus the current moment.
+  // We use public search pages instead of scraping or embedding private API credentials.
+  function discoveryQuery(){
+    const direct=$('musicQuery').value.trim();
+    const eventName=$('event').value.trim();
+    const mood=$('mood').value.trim();
+    const story=$('story').value.trim();
+    const parts=[direct,eventName,mood,story].filter(Boolean);
+    // Keep the story contribution short so a long personal note does not become a huge URL.
+    return parts.slice(0,3).join(' ').slice(0,280);
+  }
+  function openSearch(url,message){
+    window.open(url,'_blank','noopener,noreferrer');
+    $('discoveryStatus').textContent=message;
+  }
+  function requireDiscoveryQuery(){
+    const q=discoveryQuery();
+    if(!q){toast('Enter a song, artist or theme, or create a moment first.');return null}
+    return q;
+  }
+  $('searchMusic').addEventListener('click',()=>{
+    const q=requireDiscoveryQuery();
+    if(!q)return;
+    const service=$('service').value;
+    const url=service==='spotify'
+      ?`https://open.spotify.com/search/${encodeURIComponent(q)}`
+      :`https://www.youtube.com/results?search_query=${encodeURIComponent(q)}`;
+    openSearch(url,`Searching ${service==='spotify'?'Spotify':'YouTube'} for: ${q}`);
+  });
+  $('searchPoetry').addEventListener('click',()=>{
+    const q=requireDiscoveryQuery();
+    if(!q)return;
+    const url=`https://www.google.com/search?q=${encodeURIComponent('romantic poetry '+q)}`;
+    openSearch(url,`Searching the web for poetry related to: ${q}`);
+  });
+  $('searchQuotes').addEventListener('click',()=>{
+    const q=requireDiscoveryQuery();
+    if(!q)return;
+    const url=`https://www.google.com/search?q=${encodeURIComponent('romantic love quotes '+q)}`;
+    openSearch(url,`Searching the web for quotes related to: ${q}`);
+  });
+  $('searchAll').addEventListener('click',()=>{
+    const q=requireDiscoveryQuery();
+    if(!q)return;
+    const musicService=$('service').value;
+    const musicUrl=musicService==='spotify'
+      ?`https://open.spotify.com/search/${encodeURIComponent(q)}`
+      :`https://www.youtube.com/results?search_query=${encodeURIComponent(q)}`;
+    const poetryUrl=`https://www.google.com/search?q=${encodeURIComponent('romantic poetry '+q)}`;
+    const quoteUrl=`https://www.google.com/search?q=${encodeURIComponent('romantic love quotes '+q)}`;
+    // Browsers may block additional tabs when several windows are opened at once.
+    // The first result is opened automatically; the user can use the individual buttons for the others.
+    window.open(musicUrl,'_blank','noopener,noreferrer');
+    $('discoveryStatus').textContent='Song search opened. Use Search Poetry and Search Quotes for the related content; this avoids popup-blocker issues.';
+    $('discoveryQueryHint').textContent=`Related searches ready: poetry + quotes for “${q}”.`;
+    // Keep the URLs available for the next click without storing personal data.
+    $('searchPoetry').dataset.relatedUrl=poetryUrl;
+    $('searchQuotes').dataset.relatedUrl=quoteUrl;
+  });
   $('openMusic').addEventListener('click',()=>{const raw=$('musicUrl').value.trim();try{const url=new URL(raw);if(!/^https?:$/.test(url.protocol)||!/(youtube\.com|youtu\.be|spotify\.com)$/i.test(url.hostname)){throw new Error('unsupported')}window.open(url.href,'_blank','noopener,noreferrer');$('musicStatus').textContent='Opened the supplied music link.'}catch(e){$('musicStatus').textContent='Please enter a valid YouTube or Spotify URL.'}})
 
   // Instead of pretending that a private AI key is available, create a portable prompt.

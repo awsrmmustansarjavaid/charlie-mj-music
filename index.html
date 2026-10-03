@@ -102,22 +102,72 @@
 
     <section id="discover" class="section-space section-alt">
       <div class="container">
-        <div class="section-heading"><div><div class="eyebrow">02 · DISCOVER</div><h2>Turn your feeling into music.</h2></div><span class="section-heart">♫</span></div>
-        <div class="row g-4">
-          <div class="col-lg-7"><div class="glass-card p-4 h-100">
-            <h3>Search the services you already love.</h3><p class="muted">This static edition does not pretend to own a private search API. It creates service searches from your current moment and opens them in the appropriate service.</p>
-            <div class="row g-3 mt-2">
-              <div class="col-md-6"><label class="form-label" for="musicQuery">Song / artist / feeling</label><input id="musicQuery" class="form-control" placeholder="e.g. our first dance"></div>
-              <div class="col-md-6"><label class="form-label" for="service">Search service</label><select id="service" class="form-select"><option value="youtube">YouTube</option><option value="spotify">Spotify</option></select></div>
+        <div class="section-heading"><div><div class="eyebrow">02 · DISCOVER</div><h2>Search songs, poetry and quotes.</h2></div><span class="section-heart">♫</span></div>
+        <div class="glass-card p-4 p-lg-5">
+          <!-- This discovery form intentionally uses public search URLs. It does not require a
+               private API key, and it never copies copyrighted lyrics into the application. -->
+          <div class="row g-4">
+            <div class="col-lg-7">
+              <label class="form-label" for="musicQuery">Song, artist or theme</label>
+              <input id="musicQuery" class="form-control" placeholder="e.g. Ed Sheeran Perfect, first dance, long distance love">
+              <div class="form-help mt-2"><span>Tip: enter a song title or artist if you want related poetry and quotes.</span><span id="discoveryQueryHint">Your moment can also build the search.</span></div>
             </div>
-            <button id="searchMusic" class="btn btn-heart mt-4" type="button">Search Music ♡</button>
-          </div></div>
-          <div class="col-lg-5"><div class="glass-card p-4 h-100">
-            <h3>Open a song directly</h3><p class="muted">Paste a YouTube or Spotify URL when you already know the song. No API key is required for this browser-side action.</p>
-            <input id="musicUrl" class="form-control" placeholder="https://...">
-            <button id="openMusic" class="btn btn-outline-heart mt-3" type="button">Open Song</button>
+            <div class="col-lg-5">
+              <label class="form-label" for="service">Music service</label>
+              <select id="service" class="form-select">
+                <option value="youtube">YouTube</option>
+                <option value="spotify">Spotify</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <div class="discovery-actions">
+                <button id="searchMusic" class="btn btn-heart" type="button">♫ Search Songs</button>
+                <button id="searchPoetry" class="btn btn-outline-heart" type="button">♡ Search Poetry</button>
+                <button id="searchQuotes" class="btn btn-outline-heart" type="button">✦ Search Quotes</button>
+                <button id="searchAll" class="btn btn-ghost" type="button">Search All</button>
+              </div>
+              <div id="discoveryStatus" class="small-status mt-3" aria-live="polite">Searches open in your browser; no private search API is required.</div>
+            </div>
+          </div>
+
+          <hr class="romantic-divider my-5">
+
+          <div class="row g-4">
+            <div class="col-md-4">
+              <div class="discovery-card">
+                <div class="tool-icon">🎵</div>
+                <h3>Songs</h3>
+                <p>Search real songs and artists on YouTube or Spotify using your song/theme and current love moment.</p>
+                <div class="small-status">YouTube + Spotify</div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="discovery-card">
+                <div class="tool-icon">📖</div>
+                <h3>Poetry</h3>
+                <p>Find poems related to the song, mood, event or story through public web search. The app does not store copyrighted poems.</p>
+                <div class="small-status">Web discovery</div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="discovery-card">
+                <div class="tool-icon">💬</div>
+                <h3>Quotes</h3>
+                <p>Search relationship and romantic quotes connected to the same theme, song or moment.</p>
+                <div class="small-status">Web discovery</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-5">
+            <h3 class="h5">Open a known song</h3>
+            <p class="muted">Paste a YouTube or Spotify URL when you already know the song. No API key is required for this browser-side action.</p>
+            <div class="input-group">
+              <input id="musicUrl" class="form-control" placeholder="https://open.spotify.com/... or https://www.youtube.com/...">
+              <button id="openMusic" class="btn btn-outline-heart" type="button">Open Song</button>
+            </div>
             <div id="musicStatus" class="small-status mt-3" aria-live="polite"></div>
-          </div></div>
+          </div>
         </div>
       </div>
     </section>
