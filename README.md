@@ -16,162 +16,194 @@
 
 </div>
 
-**A privacy-first romantic music and moment discovery web app for couples.**
+# Charlie MJ Music
 
-Charlie MJ Music helps couples turn a feeling, memory, celebration, or relationship moment into a music-focused experience. It is deliberately designed as a **static, GitHub Pages-friendly application**.
+Charlie MJ Music is a **100% client-side romantic discovery web app** for people who struggle to find the right song, poem, quote, or caption for a feeling they cannot easily describe.
 
-## What this final edition is
+The central idea is simple:
 
-- HTML, CSS and JavaScript only
-- Bootstrap responsive grid via CDN
-- No Node.js backend
-- No Python backend
-- No database server
-- No GitHub Actions workflow
-- No private API keys committed to the repository
-- Local browser storage for memories
-- Browser microphone recording for recognition preparation
-- Moment-to-Discovery Engine that automatically starts live searches after moment creation
-- YouTube + Spotify song discovery from feelings, events and relationship context
-- Romantic poetry, wise quote and social-caption discovery from the same moment
-- Feeling Translator for people who do not know what song/keywords to search
-- Spotify search/link support without exposing a client secret
-- YouTube search/link support without requiring a private search backend
-- Local-AI-friendly prompt generation
-- Romantic responsive visual design
-- No fake songs, poems, quotes or seeded memories
+> **Tell the app what happened and how you feel → create the moment → immediately turn that feeling into real searches for songs, poetry, wise quotes, and captions.**
 
-## Important integration principle
+## ❤️ What actually happens when you create a moment?
 
-A public GitHub Pages site cannot securely hide a secret API key. This project therefore **does not pretend to do so**.
+When **Create My Moment** is pressed, the application does not only save a card. It immediately:
 
-- Spotify authentication should use OAuth Authorization Code with PKCE.
-- Recognition providers should use a user-owned credential or a future provider designed for browser/public clients.
-- AI can use local/browser models or a user-owned local AI installation.
-- Public search pages are used where a private API is unnecessary.
+1. Saves the moment in browser storage.
+2. Reads the event, mood, relationship context, soundtrack preference, and story.
+3. Detects useful emotional themes such as *missing you*, *long distance*, *healing*, *gratitude*, *forever love*, *new romance*, and *wedding*.
+4. Builds a real search phrase from that information.
+5. Creates direct **YouTube** and **Spotify** music searches.
+6. Creates focused **poetry** searches.
+7. Creates **wise love quote** searches.
+8. Creates **romantic caption** searches.
+9. Shows every search in a Discovery Pack inside the app.
+10. Attempts to open the discovery searches immediately in new tabs. If the browser blocks popups, the same working links remain available as buttons in the Discovery Pack.
 
-See `docs/integrations.md` for the detailed integration strategy.
+This is deliberately implemented without a backend or secret API key.
 
-## Features
+## 🎵 Example
 
-### Romantic experience
+If someone enters:
 
-- Cinematic love-themed interface
-- Midnight Love / Rose Romance visual theme toggle
-- Heart-shaped CTAs and romantic glass cards
-- Animated vinyl and music waveform
-- Responsive Bootstrap layout
-- Mobile, tablet and desktop support
+> I am working abroad and really miss my wife. I want something emotional but hopeful that feels like home.
 
-### Create My Moment
+Charlie MJ Music can turn that into discovery concepts such as:
 
-- Event selection
-- Mood selection
-- Partner name
-- Personal story
-- Couple photo preview
-- Local memory storage
-- JSON export
-- Local deletion
+- long distance love
+- missing you
+- reunion song
+- emotional love song
+- home love song
+- hopeful romance
+- marriage love
 
-### Music + love-content discovery
+Those concepts are then used to create the YouTube, Spotify, poetry, quote, caption, and broad-web searches.
 
-- Moment creation automatically starts a Discovery Pack
-- YouTube + Spotify song search from the moment
-- Feeling-to-search translation for difficult-to-explain emotions
-- Romantic poetry discovery
-- Wise love quote discovery
-- Romantic Instagram/social caption discovery
-- Direct YouTube/Spotify URL opening
-- No fake/default songs, poems or quotes
+## ✨ Key Features
 
-### Love tools
+- ❤️ Feeling-to-discovery engine
+- 🎵 Real YouTube song search links
+- 🟢 Real Spotify search links
+- 📖 Poetry discovery
+- 💬 Wise love quote discovery
+- ✨ Romantic social-caption discovery
+- 🔎 Broad web discovery
+- 💌 Local-AI-ready love-letter prompts
+- 🎙️ Browser microphone recording for song-recognition workflows
+- 🧠 Emotional theme detection from free-form stories
+- 💑 Relationship-aware search concepts
+- 💍 Wedding / first-dance discovery
+- 💕 Anniversary and birthday discovery
+- 🌍 Long-distance and missing-someone discovery
+- 🩹 Healing / reconnection discovery
+- 🎨 Romantic Midnight and Rose themes
+- 📸 Couple-photo memory support
+- 💾 Local browser memories
+- 📤 JSON export
+- 🔄 Restore the latest moment after refresh
+- 📱 Fully responsive Bootstrap layout
+- 🔐 No private credentials embedded in source
+- 🚫 No backend
+- 🚫 No database
+- 🚫 No GitHub Actions workflow
 
-- Local-AI prompt generation
-- Love-letter prompt preparation
-- Browser microphone recording
-- Recognition-provider-ready audio capture
+## ⚠️ Important: what “search” means in this static edition
 
-## Project structure
+GitHub Pages can safely host HTML, CSS, and JavaScript, but it cannot securely hide a private API secret. YouTube and Spotify also have their own API/authentication requirements.
+
+Therefore the core discovery engine uses **real public search URLs** rather than fake in-app song data. The app opens or provides the actual YouTube/Spotify/web search pages with the user's moment already converted into a query.
+
+This means the project does **not** pretend that a song database exists locally. No fake/default songs, quotes, poems, or memories are shipped with the project.
+
+For a fully authenticated Spotify API integration, use Spotify's browser/public-client authorization flow such as PKCE. For professional song recognition, configure a recognition provider with a user-owned credential rather than embedding the developer's private key.
+
+## 🏗️ Architecture
+
+```text
+Browser
+  │
+  ├── Create Moment
+  │      ├── Event
+  │      ├── Mood
+  │      ├── Relationship
+  │      ├── Soundtrack style
+  │      └── Personal story
+  │
+  ├── Feeling Translator
+  │      └── Emotional search concepts
+  │
+  ├── Discovery Pack
+  │      ├── YouTube search
+  │      ├── Spotify search
+  │      ├── Poetry search
+  │      ├── Wise quotes search
+  │      └── Caption search
+  │
+  └── localStorage / IndexedDB-style browser storage
+
+No server
+No database
+No GitHub Actions
+No private production API keys
+```
+
+## 📁 Repository
 
 ```text
 charlie-mj-music/
-├── index.html
+├── assets/
+│   └── 3aebafd8-e155-49ae-a14e-44ab2d731d9e.png
 ├── css/
 │   └── style.css
 ├── js/
 │   └── app.js
-├── assets/
-│   ├── 3aebafd8-e155-49ae-a14e-44ab2d731d9e.png
-│   └── icons/
 ├── docs/
 │   ├── architecture.md
-│   ├── features.md
-│   ├── integrations.md
-│   ├── github-pages.md
-│   ├── privacy.md
 │   ├── development.md
+│   ├── discovery.md
+│   ├── features.md
+│   ├── github-pages.md
+│   ├── integrations.md
+│   ├── privacy.md
 │   └── roadmap.md
-├── .gitignore
+├── data/
+├── index.html
+├── CHANGELOG.md
+├── CONTRIBUTING.md
 ├── LICENSE
-└── README.md
+├── README.md
+└── .gitignore
 ```
 
-## Run locally
+## 🚀 Run locally
 
 No installation is required.
 
-1. Download or clone the repository.
-2. Open `index.html` in a modern browser.
-3. For microphone features, use a secure context such as `localhost` or HTTPS.
+The simplest option is to open `index.html` in a modern browser.
 
-For the most reliable local development, use any simple static file server. The application itself does not require a server backend.
+For microphone permissions and more predictable browser behavior, serve the folder with any simple static HTTP server, for example:
 
-## Publish on GitHub Pages — without GitHub Actions
+```bash
+python -m http.server 8000
+```
+
+Then open:
+
+```text
+http://localhost:8000
+```
+
+The application itself does not require Python; Python is only one optional way to serve static files locally.
+
+## 🌐 Publish on GitHub Pages — no workflow
 
 1. Create a GitHub repository.
-2. Upload these files to the repository's `main` branch.
+2. Upload the repository files to the `main` branch.
 3. Open **Settings → Pages**.
-4. Under **Build and deployment**, select **Deploy from a branch**.
+4. Select **Deploy from a branch**.
 5. Select `main` and `/ (root)`.
 6. Save.
-7. GitHub Pages will publish the static files.
+7. Wait for GitHub Pages to publish the site.
 
 There is intentionally **no `.github/workflows/` directory** in this repository.
 
-## Browser requirements
-
-Use a current Chrome, Edge, Firefox or Safari release. Microphone access requires browser permission and normally HTTPS/localhost.
-
-## Privacy
-
-Moment information and photos are kept in browser storage by this application. Clearing site data can remove them. The application does not include a server endpoint for uploading them.
-
-External services such as Spotify, YouTube or a recognition provider are separate services and have their own privacy policies and authentication requirements.
-
-Read `docs/privacy.md` before enabling third-party integrations.
-
-## Development principles
-
-Every source file contains comments explaining the important implementation decisions. Keep these principles when extending the project:
-
-- Never commit API secrets.
-- Do not add a backend unless the architecture is intentionally changed.
-- Do not add fake content just to make the interface look populated.
-- Keep personal memories local by default.
-- Clearly label features that require third-party credentials.
-- Prefer official APIs and OAuth flows designed for public/browser clients.
-
-## Documentation
+## 📚 Documentation
 
 - [Architecture](docs/architecture.md)
+- [Discovery Engine](docs/discovery.md)
 - [Features](docs/features.md)
 - [Integrations](docs/integrations.md)
-- [GitHub Pages deployment](docs/github-pages.md)
+- [GitHub Pages](docs/github-pages.md)
 - [Privacy](docs/privacy.md)
-- [Development guide](docs/development.md)
+- [Development](docs/development.md)
 - [Roadmap](docs/roadmap.md)
 
-## License
+## 🔐 Privacy model
 
-MIT License. See `LICENSE`.
+Moment information and memories are stored locally in the user's browser. The static application does not send the user's story to a Charlie MJ Music backend because there is no backend.
+
+When the user clicks an external discovery link, the query is sent to that external website because that is how the external search service works. The app makes this transition visible instead of silently uploading the user's private story.
+
+## 📜 License
+
+See [LICENSE](LICENSE).

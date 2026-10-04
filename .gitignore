@@ -1,34 +1,26 @@
-# Charlie MJ Music — static GitHub Pages project
-# Keep editor, OS, generated and secret files out of version control.
-
-# Operating system files
+# OS/editor files
 .DS_Store
 Thumbs.db
-Desktop.ini
-
-# Editor settings
 .vscode/
 .idea/
-*.swp
-*.swo
 
-# Local development secrets — NEVER commit these
+# Python cache if Python is used only for optional local static serving
+__pycache__/
+*.pyc
+
+# Node/editor caches are ignored even though this project has no Node backend.
+node_modules/
+.npm/
+
+# Local environment files. Never commit secrets.
 .env
 .env.*
 !.env.example
-*.key
-*.pem
-
-# Dependencies/build output if a future development tool is used
-node_modules/
-dist/
-build/
-coverage/
 
 # Temporary files
 *.tmp
-*.temp
 *.log
+*.bak
 
-# Local exports created while testing
-charlie-mj-music-memories.json
+# Generated archives
+*.zip

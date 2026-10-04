@@ -1,54 +1,40 @@
 # Architecture
 
-## Goal
+Charlie MJ Music is intentionally a static single-page application.
 
-Charlie MJ Music is intentionally a static web application. The architecture avoids a private server because the primary goal is simple GitHub Pages deployment and local-first personal data handling.
+## Runtime
 
-## Runtime model
+- HTML5
+- CSS3
+- Vanilla JavaScript
+- Bootstrap grid via CDN
+- Browser localStorage
+- Browser MediaRecorder API
 
-```text
-Browser
-├── HTML presentation
-├── CSS romantic visual system
-├── JavaScript application logic
-├── localStorage → moment metadata/theme
-├── Browser File API → local photo preview
-├── MediaRecorder → local audio recording
-└── External services
-    ├── Spotify public-client OAuth/PKCE
-    ├── YouTube public search pages / embeds
-    └── Optional recognition provider
-```
+## No server
 
-## Why there is no backend
+There is no Node.js, Python web server, database, API gateway, or cloud function in the repository.
 
-A backend is not required for the core experience. Adding one would introduce hosting, deployment, secret management, maintenance and a privacy boundary that the static edition intentionally avoids.
+## Discovery architecture
 
-## What the browser can safely do
+The application generates search URLs directly in the browser. It does not attempt to hide credentials or scrape external pages.
 
-- Render the entire interface.
-- Store user-created data locally.
-- Open public search pages.
-- Use browser APIs such as FileReader, MediaRecorder and Clipboard where supported.
-- Run compatible local/browser AI models.
-- Perform OAuth flows designed for public clients.
-
-## What the browser cannot securely do
-
-A static page cannot keep a secret from its visitor. JavaScript, bundled configuration and network requests are inspectable. Therefore, a private API secret must never be embedded in production files.
-
-## Data flow for a saved moment
+## Data flow
 
 ```text
-User input
-   ↓
-Validation
-   ↓
-Moment object
-   ↓
-localStorage
-   ↓
-Rendered memory card / JSON export
+User
+ ↓
+index.html
+ ↓
+js/app.js
+ ↓
+Feeling translator
+ ↓
+Search URL builder
+ ↓
+External search provider
 ```
 
-No application server is involved.
+## Storage
+
+The latest moment and saved memories are stored locally. The browser remains the source of truth.

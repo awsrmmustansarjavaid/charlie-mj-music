@@ -1,57 +1,24 @@
 # Development Guide
 
-## Principles
+## No build system
 
-1. Keep the application static unless there is a documented architectural reason to change it.
-2. Do not commit secrets.
-3. Do not add fake/default content.
-4. Comment important browser and security decisions.
-5. Keep accessibility in mind.
-6. Prefer progressive enhancement when browser APIs are unavailable.
+There is no npm installation and no compilation step.
 
-## HTML
+The main files are:
 
-`index.html` contains the complete application shell and semantic sections for the hero, moment creation, discovery, tools and memories.
+- `index.html` — page structure and application controls
+- `css/style.css` — romantic responsive design
+- `js/app.js` — discovery engine and browser functionality
 
-## CSS
+## Testing
 
-`css/style.css` contains the romantic visual system, responsive rules and theme variables. The design avoids excessive decorative effects so the UI remains usable.
+Use a modern browser and test:
 
-## JavaScript
-
-`js/app.js` handles:
-
-- Form validation.
-- Local storage.
-- Photo preview.
-- Music search links.
-- Local AI prompt preparation.
-- Microphone recording.
-- Memory rendering/export/deletion.
-- Theme preference.
-
-## Testing checklist
-
-- Open the page on desktop.
-- Test mobile width.
-- Create a moment.
-- Reload and verify local memory remains.
-- Export JSON.
-- Delete a memory.
-- Test YouTube search.
-- Test Spotify search.
-- Test direct music URL validation.
-- Test theme toggle.
-- Test microphone permission on HTTPS/localhost.
-- Confirm no API secret exists in source.
-
-## Adding an integration
-
-Document the integration before coding it. Identify:
-
-- Whether authentication is required.
-- Whether the client secret can be avoided.
-- Whether CORS allows browser calls.
-- Whether the provider permits public/browser clients.
-- Whether the provider charges for use.
-- What user data leaves the browser.
+1. Create a moment.
+2. Confirm the Discovery Pack appears automatically.
+3. Confirm YouTube and Spotify search links contain the moment context.
+4. Confirm poetry, quote, and caption links are created.
+5. Test popup-blocking behavior; the visible cards must still work.
+6. Refresh and confirm the latest moment is restored.
+7. Export memories as JSON.
+8. Test microphone permissions only on a secure origin or localhost.
